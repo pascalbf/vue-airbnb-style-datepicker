@@ -190,8 +190,7 @@
 .asd__day {
   line-height: 38px;
   height: 38px;
-  padding: 0;
-  overflow: hidden; }
+  padding: 0; }
   .asd__day--enabled {
     border: 1px solid #e4e7e7; }
     .asd__day--enabled:hover {

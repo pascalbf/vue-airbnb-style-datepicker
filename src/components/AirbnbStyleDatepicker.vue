@@ -108,7 +108,10 @@
                     class="asd__day"
                     v-for="({fullDate, dayNumber}, index) in week"
                     :key="index + '_' + dayNumber"
+                    :data-date="fullDate"
                     :ref="`date-${fullDate}`"
+                    :tabindex="isDateVisible(fullDate) && isSameDate(focusedDate, fullDate) ? 0 : -1"
+                    :aria-label="isDateVisible(fullDate) ? getAriaLabelForDate(fullDate) : false"
                     :class="[{
                       'asd__day--enabled': dayNumber !== 0,
                       'asd__day--empty': dayNumber === 0,
@@ -124,16 +127,15 @@
                     @mouseover="() => { setHoverDate(fullDate) }"
                   >
                   <button
-                    class="asd__day-button"
-                    type="button"
-                    v-if="dayNumber"
-                    :data-date="fullDate"
-                    :date="fullDate"
-                    :disabled="isDisabled(fullDate)"
-                    :tabindex="isDateVisible(fullDate) && isSameDate(focusedDate, fullDate) ? 0 : -1"
-                    :aria-label="isDateVisible(fullDate) ? getAriaLabelForDate(fullDate) : false"
-                    @click="() => { selectDate(fullDate) }"
-                  >{{ dayNumber }}</button>
+                      class="asd__day-button"
+                      type="button"
+                      v-if="dayNumber"
+                      tabindex="-1"
+                      :date="fullDate"
+                      :disabled="isDisabled(fullDate)"
+                      aria-hidden="true"
+                      @click="() => { selectDate(fullDate) }"
+                    >{{ dayNumber }}</button>
                   </td>
                 </tr>
               </tbody>
@@ -1306,6 +1308,7 @@ $transition-time: 0.3s;
     line-height: $size;
     height: $size;
     padding: 0;
+    overflow: hidden;
     &--enabled {
       border: $border;
       &:hover {

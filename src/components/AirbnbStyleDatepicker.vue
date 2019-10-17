@@ -740,10 +740,7 @@ export default {
     },
     setupDatepicker() {
       if (this.$options.ariaLabels) {
-        this.ariaLabels = {
-          ...this.ariaLabels,
-          ...this.$options.ariaLabels,
-        }
+        this.ariaLabels = Object.assign({}, this.ariaLabels, this.$options.ariaLabels);
       }
       if (this.$options.keyboardShortcuts) {
         this.keyboardShortcuts = copyObject(this.$options.keyboardShortcuts)

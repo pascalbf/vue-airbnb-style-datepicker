@@ -715,7 +715,7 @@ return _c('td',{key:index + '_' + dayNumber,ref:("date-" + fullDate),refInFor:tr
     },
     setupDatepicker: function setupDatepicker() {
       if (this.$options.ariaLabels) {
-        this.ariaLabels = copyObject(this.$options.ariaLabels);
+        this.ariaLabels = Object.assign({}, this.ariaLabels, this.$options.ariaLabels);
       }
       if (this.$options.keyboardShortcuts) {
         this.keyboardShortcuts = copyObject(this.$options.keyboardShortcuts);

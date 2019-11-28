@@ -550,7 +550,7 @@ export default {
       const isHoveredInRange = this.isHoveredInRange(date)
 
       let styles = {
-        width: (this.width - 30) / 7 + 'px',
+        // width: (this.width - 30) / 7 + 'px',
         background: isSelected
           ? this.colors.selected
           : isHoveredInRange

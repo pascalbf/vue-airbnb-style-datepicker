@@ -603,7 +603,7 @@
         var isDisabled = this.isDisabled(date);
         var isHoveredInRange = this.isHoveredInRange(date);
         var styles = {
-          width: (this.width - 30) / 7 + 'px',
+          // width: (this.width - 30) / 7 + 'px',
           background: isSelected ? this.colors.selected : isHoveredInRange ? this.colors.hoveredInRange : isInRange ? this.colors.inRange : '',
           color: isSelected ? this.colors.selectedText : isInRange || isHoveredInRange ? this.colors.selectedText : this.colors.text,
           border: isSelected ? '1px double ' + this.colors.selected : isInRange && this.allDatesSelected || isHoveredInRange ? '1px double ' + this.colors.inRangeBorder : ''

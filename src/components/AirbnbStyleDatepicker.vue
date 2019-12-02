@@ -21,7 +21,10 @@
         <h3>{{ mobileHeader || mobileHeaderFallback }}</h3>
       </div>
       <div class="asd__datepicker-header">
-        <div class="asd__change-month-button asd__change-month-button--previous">
+        <div
+          class="asd__change-month-button asd__change-month-button--previous"
+          :class="{'asd__change-month-button--disabled': isPrevMonthDisabled}"
+        >
           <button @click="previousMonth" type="button" :aria-label="ariaLabels.previousMonth">
             <slot v-if="$slots['previous-month-icon']" name="previous-month-icon"></slot>
             <svg v-else viewBox="0 0 1000 1000">
@@ -252,6 +255,7 @@ export default {
     },
     trigger: { type: Boolean, default: false },
     closeAfterSelect: { type: Boolean, default: false },
+    disabledBeforeMinDate: { type: Boolean, default: false },
   },
   data() {
     return {
@@ -446,6 +450,15 @@ export default {
         numberOfMonthsArray.push(i)
       }
       return numberOfMonthsArray.map((_, index) => firstMonthArray[index].firstDateOfMonth)
+    },
+    isPrevMonthDisabled() {
+      if (this.disabledBeforeMinDate && this.hasMinDate) {
+        if (isSameMonth(this.months[1].firstDateOfMonth, this.minDate)) {
+          return true;
+        }
+        return false;
+      }
+      return false;
     },
   },
   watch: {
@@ -986,12 +999,14 @@ export default {
       return this.isDateDisabled(date) || this.isBeforeMinDate(date) || this.isAfterEndDate(date)
     },
     previousMonth() {
-      this.startingDate = this.subtractMonths(this.months[0].firstDateOfMonth)
+      if (!this.isPrevMonthDisabled) {
+        this.startingDate = this.subtractMonths(this.months[0].firstDateOfMonth)
 
-      this.months.unshift(this.getMonth(this.startingDate))
-      this.months.splice(this.months.length - 1, 1)
-      this.$emit('previous-month', this.visibleMonths)
-      this.resetFocusedDate(false)
+        this.months.unshift(this.getMonth(this.startingDate))
+        this.months.splice(this.months.length - 1, 1)
+        this.$emit('previous-month', this.visibleMonths)
+        this.resetFocusedDate(false)
+      }
     },
     nextMonth() {
       this.startingDate = this.addMonths(this.months[this.months.length - 1].firstDateOfMonth)

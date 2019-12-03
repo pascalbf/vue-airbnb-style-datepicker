@@ -477,12 +477,14 @@ var script = {
     },
 
     isPrevMonthDisabled: function isPrevMonthDisabled() {
-      if (this.disabledBeforeMinDate && this.hasMinDate) {
-        if (isSameMonth(this.months[1].firstDateOfMonth, this.minDate)) {
-          return true;
-        }
+      if (this.months.length) {
+        if (this.disabledBeforeMinDate && this.hasMinDate) {
+          if (isSameMonth(this.visibleMonths[0], this.minDate)) {
+            return true;
+          }
 
-        return false;
+          return false;
+        }
       }
 
       return false;

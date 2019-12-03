@@ -2178,12 +2178,14 @@
       },
 
       isPrevMonthDisabled: function isPrevMonthDisabled() {
-        if (this.disabledBeforeMinDate && this.hasMinDate) {
-          if (is_same_month(this.months[1].firstDateOfMonth, this.minDate)) {
-            return true;
-          }
+        if (this.months.length) {
+          if (this.disabledBeforeMinDate && this.hasMinDate) {
+            if (is_same_month(this.visibleMonths[0], this.minDate)) {
+              return true;
+            }
 
-          return false;
+            return false;
+          }
         }
 
         return false;
